@@ -1,9 +1,9 @@
 <!-- TITLE/ -->
-# base-config-component
+# @dword-design/base-config-component
 <!-- /TITLE -->
 
 <!-- BADGES/ -->
-[![NPM version](https://img.shields.io/npm/v/base-config-component.svg)](https://npmjs.org/package/base-config-component)
+[![NPM version](https://img.shields.io/npm/v/@dword-design/base-config-component.svg)](https://npmjs.org/package/@dword-design/base-config-component)
 ![Linux macOS Windows compatible](https://img.shields.io/badge/os-linux%20%7C%C2%A0macos%20%7C%C2%A0windows-blue)
 [![Build status](https://img.shields.io/github/workflow/status/dword-design/base-config-component/build)](https://github.com/dword-design/base-config-component/actions)
 [![Coverage status](https://img.shields.io/coveralls/dword-design/base-config-component)](https://coveralls.io/github/dword-design/base-config-component)
@@ -22,10 +22,10 @@
 
 ```bash
 # NPM
-$ npm install base-config-component
+$ npm install @dword-design/base-config-component
 
 # Yarn
-$ yarn add base-config-component
+$ yarn add @dword-design/base-config-component
 ```
 <!-- /INSTALL -->
 

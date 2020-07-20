@@ -13,9 +13,9 @@ export default {
     },
   },
   lint,
+  npmPublish: true,
   packageConfig: {
     main: 'dist/index.vue',
   },
-  npmPublish: true,
   useJobMatrix: true,
 }
