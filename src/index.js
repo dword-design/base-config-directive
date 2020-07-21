@@ -4,6 +4,7 @@ import { endent } from '@dword-design/functions'
 import depcheckParserVue from 'depcheck-parser-vue'
 import execa from 'execa'
 import { outputFile, remove } from 'fs-extra'
+import getPackageName from 'get-package-name'
 import P from 'path'
 
 import entry from './entry'
@@ -17,7 +18,7 @@ export default {
         await outputFile(P.join('src', 'entry.js'), entry)
         await remove('dist')
         await execa(
-          'rollup',
+          getPackageName(require.resolve('rollup')),
           [
             '--config',
             require.resolve('@dword-design/rollup-config-component'),
