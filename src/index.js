@@ -8,7 +8,6 @@ import getPackageName from 'get-package-name'
 import P from 'path'
 
 import entry from './entry'
-import lint from './lint'
 
 export default {
   ...nodeConfig,
@@ -40,16 +39,15 @@ export default {
   },
   editorIgnore: [...nodeConfig.editorIgnore, '.browserslistrc'],
   gitignore: [...nodeConfig.gitignore, '.browserslistrc'],
-  lint,
-  npmPublish: true,
   packageConfig: {
     browser: 'dist/index.esm.js',
     main: 'dist/index.ssr.js',
     module: 'dist/index.esm.js',
     unpkg: 'dist/index.min.js',
   },
-  prepare: () =>
-    outputFile(
+  prepare: async () => {
+    await nodeConfig.prepare()
+    await outputFile(
       '.browserslistrc',
       endent`
         current node
@@ -57,6 +55,6 @@ export default {
         ie > 10
         
       `
-    ),
-  useJobMatrix: true,
+    )
+  },
 }
