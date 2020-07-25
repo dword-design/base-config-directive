@@ -1,7 +1,5 @@
 import nodeConfig from '@dword-design/base-config-node'
-import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
-import depcheckParserVue from 'depcheck-parser-vue'
 import execa from 'execa'
 import { outputFile, remove } from 'fs-extra'
 import getPackageName from 'get-package-name'
@@ -29,12 +27,6 @@ export default {
       } finally {
         await remove(P.join('src', 'entry.js'))
       }
-    },
-  },
-  depcheckConfig: {
-    parsers: {
-      '*.scss': depcheckParserSass,
-      '*.vue': depcheckParserVue,
     },
   },
   editorIgnore: [...nodeConfig.editorIgnore, '.browserslistrc'],
