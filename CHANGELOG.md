@@ -1,3 +1,20 @@
+# 1.0.0 (2020-07-25)
+
+
+### Bug Fixes
+
+* **config:** Update changed files ([4985d2b](https://github.com/dword-design/base-config-directive/commit/4985d2bab9234acf0ebc2cf35afa7eb82a3219db))
+* fix ([a63a98c](https://github.com/dword-design/base-config-directive/commit/a63a98caf8104519f0968a272644728e8c82de40))
+* fix ([4f935c1](https://github.com/dword-design/base-config-directive/commit/4f935c1c42af73a598636800d1a07de62789a735))
+* fix deps ([1ef37fe](https://github.com/dword-design/base-config-directive/commit/1ef37fe1980623ccd0442287a63e170376eccdcd))
+
+
+### Features
+
+* init ([2dfe54c](https://github.com/dword-design/base-config-directive/commit/2dfe54ca1f1d683d834065f248d34ddb25a40413))
+* init ([077f0c4](https://github.com/dword-design/base-config-directive/commit/077f0c46727fc17fdb1e6d90bdc6452aba6759d7))
+* use rollup ([99180da](https://github.com/dword-design/base-config-directive/commit/99180da3ef6f8c5fd967a2ef67490d661cc9344c))
+
 ## [1.1.1](https://github.com/dword-design/base-config-component/compare/v1.1.0...v1.1.1) (2020-07-21)
 
 
