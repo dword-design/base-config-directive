@@ -21,7 +21,8 @@ export default {
             require.resolve('@dword-design/rollup-config-component'),
           ],
           {
-            env: { NODE_ENV: 'production', stdio: 'inherit' },
+            env: { NODE_ENV: 'production' },
+            stdio: 'inherit',
           }
         )
       } finally {
@@ -45,7 +46,7 @@ export default {
         current node
         last 2 versions and > 2%
         ie > 10
-        
+
       `
     )
   },
