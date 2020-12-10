@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/dword-design/base-config-directive/compare/v1.0.3...v1.0.4) (2020-12-10)
+
+
+### Bug Fixes
+
+* replace get-package-name with depcheck-package-name ([83a780f](https://github.com/dword-design/base-config-directive/commit/83a780f1e867bce496b16da3247ed7ebfefdf936))
+
 ## [1.0.3](https://github.com/dword-design/base-config-directive/compare/v1.0.2...v1.0.3) (2020-12-02)
 
 
