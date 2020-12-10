@@ -1,8 +1,8 @@
 import nodeConfig from '@dword-design/base-config-node'
 import { endent } from '@dword-design/functions'
+import packageName from 'depcheck-package-name'
 import execa from 'execa'
 import { outputFile, remove } from 'fs-extra'
-import getPackageName from 'get-package-name'
 import P from 'path'
 
 import entry from './entry'
@@ -15,7 +15,7 @@ export default {
         await outputFile(P.join('src', 'entry.js'), entry)
         await remove('dist')
         await execa(
-          getPackageName(require.resolve('rollup')),
+          packageName`rollup`,
           [
             '--config',
             require.resolve('@dword-design/rollup-config-component'),
