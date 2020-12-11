@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/dword-design/base-config-directive/compare/v1.0.4...v1.0.5) (2020-12-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency execa to v5 ([338e773](https://github.com/dword-design/base-config-directive/commit/338e77321762cd86f24772739eae77999ab1305e))
+
 ## [1.0.4](https://github.com/dword-design/base-config-directive/compare/v1.0.3...v1.0.4) (2020-12-10)
 
 
