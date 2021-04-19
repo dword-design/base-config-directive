@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/dword-design/base-config-directive/compare/v1.0.10...v1.0.11) (2021-04-19)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#17](https://github.com/dword-design/base-config-directive/issues/17)) ([5a10750](https://github.com/dword-design/base-config-directive/commit/5a10750602ab3148020c42cc403b738d30bdef94))
+
 ## [1.0.10](https://github.com/dword-design/base-config-directive/compare/v1.0.9...v1.0.10) (2021-04-12)
 
 
