@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/dword-design/base-config-directive/compare/v1.0.15...v1.0.16) (2021-05-03)
+
+
+### Bug Fixes
+
+* fix ([2ff565c](https://github.com/dword-design/base-config-directive/commit/2ff565c62694e0c3c07b0ff3e55955a3b1d17c4f))
+
 ## [1.0.15](https://github.com/dword-design/base-config-directive/compare/v1.0.14...v1.0.15) (2021-05-03)
 
 
