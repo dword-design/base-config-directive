@@ -1,4 +1,3 @@
-import nodeConfig from '@dword-design/base-config-node'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import execa from 'execa'
@@ -8,7 +7,6 @@ import P from 'path'
 import entry from './entry'
 
 export default {
-  ...nodeConfig,
   commands: {
     prepublishOnly: async () => {
       try {
@@ -30,17 +28,16 @@ export default {
       }
     },
   },
-  editorIgnore: [...nodeConfig.editorIgnore, '.browserslistrc'],
-  gitignore: [...nodeConfig.gitignore, '.browserslistrc'],
+  editorIgnore: ['dist', '.browserslistrc'],
+  gitignore: ['/dist', '.browserslistrc'],
   packageConfig: {
     browser: 'dist/index.esm.js',
     main: 'dist/index.ssr.js',
     module: 'dist/index.esm.js',
     unpkg: 'dist/index.min.js',
   },
-  prepare: async () => {
-    await nodeConfig.prepare()
-    await outputFile(
+  prepare: () =>
+    outputFile(
       '.browserslistrc',
       endent`
         current node
@@ -48,6 +45,5 @@ export default {
         ie > 10
 
       `
-    )
-  },
+    ),
 }
