@@ -30,6 +30,7 @@ export default {
   },
   editorIgnore: ['dist', '.browserslistrc'],
   gitignore: ['/dist', '.browserslistrc'],
+  npmPublish: true,
   packageConfig: {
     browser: 'dist/index.esm.js',
     main: 'dist/index.ssr.js',
