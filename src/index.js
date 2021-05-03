@@ -7,6 +7,7 @@ import P from 'path'
 import entry from './entry'
 
 export default {
+  allowedMatches: ['src'],
   commands: {
     prepublishOnly: async () => {
       try {
