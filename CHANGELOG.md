@@ -1,3 +1,10 @@
+## [1.0.21](https://github.com/dword-design/base-config-directive/compare/v1.0.20...v1.0.21) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/rollup-config-component to v2 ([#32](https://github.com/dword-design/base-config-directive/issues/32)) ([71dfe91](https://github.com/dword-design/base-config-directive/commit/71dfe91539f6ab95dddba4e35053eeb5991f3c66))
+
 ## [1.0.20](https://github.com/dword-design/base-config-directive/compare/v1.0.19...v1.0.20) (2021-05-04)
 
 
