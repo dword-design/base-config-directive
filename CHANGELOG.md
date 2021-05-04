@@ -1,3 +1,12 @@
+## [1.0.20](https://github.com/dword-design/base-config-directive/compare/v1.0.19...v1.0.20) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/functions to v4 ([#31](https://github.com/dword-design/base-config-directive/issues/31)) ([8d1d679](https://github.com/dword-design/base-config-directive/commit/8d1d67985b93546ac908c7433cb3729d6e1f7bb3))
+* update dependency depcheck-package-name to v2 ([#33](https://github.com/dword-design/base-config-directive/issues/33)) ([6be3581](https://github.com/dword-design/base-config-directive/commit/6be35817323f26f8120e70849456555b0952ba07))
+* update dependency fs-extra to v10 ([#34](https://github.com/dword-design/base-config-directive/issues/34)) ([625b339](https://github.com/dword-design/base-config-directive/commit/625b339baeed659dd54cb1a82589b8916a97dcc9))
+
 ## [1.0.19](https://github.com/dword-design/base-config-directive/compare/v1.0.18...v1.0.19) (2021-05-03)
 
 
