@@ -1,3 +1,10 @@
+## [1.0.25](https://github.com/dword-design/base-config-directive/compare/v1.0.24...v1.0.25) (2021-06-27)
+
+
+### Bug Fixes
+
+* disable job matrix ([#44](https://github.com/dword-design/base-config-directive/issues/44)) ([2634b25](https://github.com/dword-design/base-config-directive/commit/2634b259320c13354a2c90b20e437c0d17e422bc))
+
 ## [1.0.24](https://github.com/dword-design/base-config-directive/compare/v1.0.23...v1.0.24) (2021-06-27)
 
 
