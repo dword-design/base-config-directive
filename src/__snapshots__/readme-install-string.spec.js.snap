@@ -1,17 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`readme-install-string extra scripts 1`] = `
-"## Install Via a Package Manager
+"## Install via a package manager
+
 \`\`\`bash
 # npm
 $ npm install foo-bar
+
 # Yarn
 $ yarn add foo-bar
 \`\`\`
+
 Add to local directives:
+
 \`\`\`js
 <script>
 import FooBar from 'foo-bar'
+
 export default {
   directives: {
     FooBar,
@@ -19,19 +24,27 @@ export default {
 }
 </script>
 \`\`\`
-Or register as global directive:
+
+Or register as a global directive:
+
 \`\`\`js
 import Vue from 'vue'
 import FooBar from 'foo-bar'
+
 Vue.directive('FooBar', FooBar)
 \`\`\`
-Or register as plugin:
+
+Or register as a plugin:
+
 \`\`\`js
 import Vue from 'vue'
 import FooBar from 'foo-bar'
+
 Vue.use(FooBar)
 \`\`\`
-## Install Via CDN
+
+## Install via CDN
+
 \`\`\`html
 <script src=\\"https://unpkg.com/vue\\"></script>
 <script src=\\"https://unpkg.com/mermaid/dist/mermaid.min.js\\"></script>
@@ -40,17 +53,22 @@ Vue.use(FooBar)
 `;
 
 exports[`readme-install-string valid 1`] = `
-"## Install Via a Package Manager
+"## Install via a package manager
+
 \`\`\`bash
 # npm
 $ npm install foo-bar
+
 # Yarn
 $ yarn add foo-bar
 \`\`\`
+
 Add to local directives:
+
 \`\`\`js
 <script>
 import FooBar from 'foo-bar'
+
 export default {
   directives: {
     FooBar,
@@ -58,19 +76,27 @@ export default {
 }
 </script>
 \`\`\`
-Or register as global directive:
+
+Or register as a global directive:
+
 \`\`\`js
 import Vue from 'vue'
 import FooBar from 'foo-bar'
+
 Vue.directive('FooBar', FooBar)
 \`\`\`
-Or register as plugin:
+
+Or register as a plugin:
+
 \`\`\`js
 import Vue from 'vue'
 import FooBar from 'foo-bar'
+
 Vue.use(FooBar)
 \`\`\`
-## Install Via CDN
+
+## Install via CDN
+
 \`\`\`html
 <script src=\\"https://unpkg.com/vue\\"></script>
 <script src=\\"https://unpkg.com/foo-bar\\"></script>
