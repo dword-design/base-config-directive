@@ -5,6 +5,7 @@ import { outputFile, remove } from 'fs-extra'
 import P from 'path'
 
 import entry from './entry'
+import readmeInstallString from './readme-install-string'
 
 export default {
   allowedMatches: ['src'],
@@ -48,4 +49,5 @@ export default {
 
       `
     ),
+  readmeInstallString,
 }
