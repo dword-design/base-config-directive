@@ -1,3 +1,10 @@
+## [1.0.27](https://github.com/dword-design/base-config-directive/compare/v1.0.26...v1.0.27) (2021-07-19)
+
+
+### Bug Fixes
+
+* add install string ([c3b6e98](https://github.com/dword-design/base-config-directive/commit/c3b6e980864a0ff411e344982853a469e9880197))
+
 ## [1.0.26](https://github.com/dword-design/base-config-directive/compare/v1.0.25...v1.0.26) (2021-07-06)
 
 
