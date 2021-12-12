@@ -4,15 +4,16 @@ import execa from 'execa'
 import { outputFile, remove } from 'fs-extra'
 import P from 'path'
 
-import entry from './entry'
-import readmeInstallString from './readme-install-string'
+import getEntrySource from './get-entry-source'
+import getReadmeInstallString from './get-readme-install-string'
 
-export default {
+export default async config => ({
   allowedMatches: ['src'],
   commands: {
     prepublishOnly: async () => {
+      console.log('prepublishOnly!')
       try {
-        await outputFile(P.join('src', 'entry.js'), entry)
+        await outputFile(P.join('src', 'entry.js'), await getEntrySource())
         await remove('dist')
         await execa(
           packageName`rollup`,
@@ -49,5 +50,5 @@ export default {
 
       `
     ),
-  readmeInstallString,
-}
+  readmeInstallString: await getReadmeInstallString(config),
+})

@@ -1,7 +1,7 @@
 import chdir from '@dword-design/chdir'
 import { endent } from '@dword-design/functions'
-import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
 import fileUrl from 'file-url'
@@ -11,7 +11,7 @@ import outputFiles from 'output-files'
 
 export default tester(
   {
-    directive: async () => {
+    async directive() {
       await outputFiles({
         'pages/index.vue': endent`
           <template>
@@ -33,23 +33,18 @@ export default tester(
       const nuxt = new Nuxt()
       await new Builder(nuxt).build()
       await nuxt.listen()
-
-      const browser = await puppeteer.launch()
-
-      const page = await browser.newPage()
       try {
-        await page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000')
 
-        const component = await page.waitForSelector('.component')
+        const component = await this.page.waitForSelector('.component')
         expect(await component.evaluate(el => el.innerText)).toEqual(
           'Hello world'
         )
       } finally {
-        await browser.close()
         await nuxt.close()
       }
     },
-    plugin: async () => {
+    async plugin() {
       await outputFiles({
         'pages/index.vue': endent`
           <template>
@@ -67,23 +62,32 @@ export default tester(
       const nuxt = new Nuxt({ plugins: ['~/plugins/plugin.js'] })
       await new Builder(nuxt).build()
       await nuxt.listen()
-
-      const browser = await puppeteer.launch()
-
-      const page = await browser.newPage()
+      this.page
+        .on('console', message =>
+          console.log(
+            `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
+          )
+        )
+        .on('pageerror', context => console.log(context.message))
+        .on('response', response =>
+          console.log(`${response.status()} ${response.url()}`)
+        )
+        .on('requestfailed', request =>
+          console.log(`${request.failure().errorText} ${request.url()}`)
+        )
       try {
-        await page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000')
 
-        const component = await page.waitForSelector('.component')
+        const component = await this.page.waitForSelector('.component')
+        await new Promise(resolve => setTimeout(resolve, 1000))
         expect(await component.evaluate(el => el.innerText)).toEqual(
           'Hello world'
         )
       } finally {
-        await browser.close()
         await nuxt.close()
       }
     },
-    script: async () => {
+    async script() {
       await outputFile(
         'index.html',
         endent`
@@ -102,20 +106,12 @@ export default tester(
         </body>
       `
       )
+      await this.page.goto(fileUrl('index.html'))
 
-      const browser = await puppeteer.launch()
-
-      const page = await browser.newPage()
-      try {
-        await page.goto(fileUrl('index.html'))
-
-        const component = await page.waitForSelector('.component')
-        expect(await component.evaluate(el => el.innerText)).toEqual(
-          'Hello world'
-        )
-      } finally {
-        await browser.close()
-      }
+      const component = await this.page.waitForSelector('.component')
+      expect(await component.evaluate(el => el.innerText)).toEqual(
+        'Hello world'
+      )
     },
   },
   [
@@ -125,12 +121,10 @@ export default tester(
         await mkdir('tmp-directive')
         await chdir('tmp-directive', async () => {
           await outputFiles({
+            '.baserc.json': JSON.stringify({ name: 'self' }),
             'node_modules/base-config-self/index.js':
               "module.exports = require('../../../src')",
-            'package.json': JSON.stringify({
-              baseConfig: 'self',
-              name: 'tmp-directive',
-            }),
+            'package.json': JSON.stringify({ name: 'tmp-directive' }),
             'src/index.js': endent`
               export default {
                 bind: el => el.innerText = 'Hello world',
@@ -142,6 +136,7 @@ export default tester(
         })
       },
     },
+    testerPluginPuppeteer(),
     testerPluginTmpDir(),
   ]
 )
