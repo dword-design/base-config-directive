@@ -1,3 +1,10 @@
+## [1.0.32](https://github.com/dword-design/base-config-directive/compare/v1.0.31...v1.0.32) (2022-01-29)
+
+
+### Bug Fixes
+
+* foo ([8e631ec](https://github.com/dword-design/base-config-directive/commit/8e631ecd665a71cf732cbe66ce8e68eeb3cdb7ec))
+
 ## [1.0.31](https://github.com/dword-design/base-config-directive/compare/v1.0.30...v1.0.31) (2022-01-12)
 
 
