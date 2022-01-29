@@ -17,7 +17,7 @@ export default endent`
 
   Add to local directives:
 
-  \`\`\`js
+  \`\`\`html
   <script>
   import ${directiveName} from '${packageName}'
 
