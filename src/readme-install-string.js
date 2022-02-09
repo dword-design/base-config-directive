@@ -3,6 +3,7 @@ import { endent, join } from '@dword-design/functions'
 import baseConfig from './base-config'
 import directiveName from './directive-name'
 import packageName from './package-name'
+import { vueCdnScript } from './variables'
 
 export default endent`
   ## Install via a package manager
@@ -52,7 +53,7 @@ export default endent`
   \`\`\`html
   ${
     [
-      '<script src="https://unpkg.com/vue"></script>',
+      vueCdnScript,
       ...baseConfig.cdnExtraScripts,
       `<script src="https://unpkg.com/${packageName}"></script>`,
     ] |> join('\n')
