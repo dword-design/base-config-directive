@@ -1,3 +1,10 @@
+## [1.0.33](https://github.com/dword-design/base-config-directive/compare/v1.0.32...v1.0.33) (2022-02-09)
+
+
+### Bug Fixes
+
+* fix vue version ([a647f73](https://github.com/dword-design/base-config-directive/commit/a647f73f4e7ed6ee04e04ead92650cd361bd885b))
+
 ## [1.0.32](https://github.com/dword-design/base-config-directive/compare/v1.0.31...v1.0.32) (2022-01-29)
 
 
