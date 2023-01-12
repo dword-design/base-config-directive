@@ -1,3 +1,10 @@
+import parsePackagejsonName from 'parse-packagejson-name'
 import { pascalCase } from 'pascal-case'
 
-export default pascalCase
+import getPackageName from './get-package-name.js'
+
+export default () => {
+  const packageName = getPackageName()
+
+  return parsePackagejsonName(packageName).fullName |> pascalCase
+}

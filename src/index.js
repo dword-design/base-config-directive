@@ -1,33 +1,25 @@
 import { endent } from '@dword-design/functions'
-import packageName from 'depcheck-package-name'
-import execa from 'execa'
-import { outputFile, remove } from 'fs-extra'
+import fs from 'fs-extra'
 import P from 'path'
+import { build } from 'vite'
 
-import getEntrySource from './get-entry-source'
-import getReadmeInstallString from './get-readme-install-string'
+import getEntrySource from './get-entry.js'
+import getReadmeInstallString from './get-readme-install-string.js'
+import viteConfig from './vite-config.js'
 
-export default async config => ({
+export default config => ({
   allowedMatches: ['src'],
   commands: {
-    prepublishOnly: async () => {
-      console.log('prepublishOnly!')
+    prepublishOnly: async (options = {}) => {
+      options = { log: true, ...options }
       try {
-        await outputFile(P.join('src', 'entry.js'), await getEntrySource())
-        await remove('dist')
-        await execa(
-          packageName`rollup`,
-          [
-            '--config',
-            require.resolve('@dword-design/rollup-config-component'),
-          ],
-          {
-            env: { NODE_ENV: 'production' },
-            stdio: 'inherit',
-          }
-        )
+        await fs.outputFile(P.join('src', 'entry.js'), await getEntrySource())
+        await build({
+          ...viteConfig,
+          ...(!options.log && { logLevel: 'warn' }),
+        })
       } finally {
-        await remove(P.join('src', 'entry.js'))
+        await fs.remove(P.join('src', 'entry.js'))
       }
     },
   },
@@ -41,7 +33,7 @@ export default async config => ({
     unpkg: 'dist/index.min.js',
   },
   prepare: () =>
-    outputFile(
+    fs.outputFile(
       '.browserslistrc',
       endent`
         current node
@@ -50,5 +42,5 @@ export default async config => ({
 
       `
     ),
-  readmeInstallString: await getReadmeInstallString(config),
+  readmeInstallString: getReadmeInstallString(config),
 })

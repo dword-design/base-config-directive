@@ -1,12 +1,12 @@
 import { endent, join } from '@dword-design/functions'
 
-import getDirectiveName from './get-directive-name'
-import getPackageName from './get-package-name'
+import getDirectiveName from './get-directive-name.js'
+import getPackageName from './get-package-name.js'
 
-export default async (config = {}) => {
+export default (config = {}) => {
   config = { cdnExtraScripts: [], ...config }
 
-  const packageName = await getPackageName()
+  const packageName = getPackageName()
 
   const directiveName = getDirectiveName(packageName)
 

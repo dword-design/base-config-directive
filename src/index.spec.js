@@ -1,13 +1,16 @@
+import { Base } from '@dword-design/base'
 import chdir from '@dword-design/chdir'
 import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
 import fileUrl from 'file-url'
-import { mkdir, outputFile, remove } from 'fs-extra'
+import fs from 'fs-extra'
 import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
+import P from 'path'
+
+import self from './index.js'
 
 export default tester(
   {
@@ -88,12 +91,12 @@ export default tester(
       }
     },
     async script() {
-      await outputFile(
+      await fs.outputFile(
         'index.html',
         endent`
         <body>
           <script src="https://unpkg.com/vue"></script>
-          <script src="../tmp-directive/dist/index.min.js"></script>
+          <script src="../tmp-directive"></script>
         
           <div id="app"></div>
         
@@ -116,23 +119,24 @@ export default tester(
   },
   [
     {
-      after: () => remove('tmp-directive'),
+      after: () => fs.remove('tmp-directive'),
       before: async () => {
-        await mkdir('tmp-directive')
+        await fs.mkdir('tmp-directive')
         await chdir('tmp-directive', async () => {
           await outputFiles({
-            '.baserc.json': JSON.stringify({ name: 'self' }),
-            'node_modules/base-config-self/index.js':
-              "module.exports = require('../../../src')",
-            'package.json': JSON.stringify({ name: 'tmp-directive' }),
+            'package.json': JSON.stringify({
+              baseConfig: P.resolve('..', 'src', 'index.js'),
+              name: 'tmp-directive',
+              type: 'module',
+            }),
             'src/index.js': endent`
               export default {
                 bind: el => el.innerText = 'Hello world',
               }
             `,
           })
-          await execa.command('base prepare')
-          await execa.command('base prepublishOnly')
+          await new Base(self).prepare()
+          await self().commands.prepublishOnly({ log: false })
         })
       },
     },
