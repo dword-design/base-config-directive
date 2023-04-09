@@ -2,6 +2,7 @@ import { endent, join } from '@dword-design/functions'
 
 import getDirectiveName from './get-directive-name.js'
 import getPackageName from './get-package-name.js'
+import { vueCdnScript } from './variables.js'
 
 export default (config = {}) => {
   config = { cdnExtraScripts: [], ...config }
@@ -58,7 +59,7 @@ export default (config = {}) => {
     \`\`\`html
     ${
       [
-        '<script src="https://unpkg.com/vue"></script>',
+        vueCdnScript,
         ...config.cdnExtraScripts,
         `<script src="https://unpkg.com/${packageName}"></script>`,
       ] |> join('\n')

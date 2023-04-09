@@ -4,13 +4,14 @@ import { endent } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
+import { execaCommand } from 'execa'
 import fileUrl from 'file-url'
 import fs from 'fs-extra'
-import { Builder, Nuxt } from 'nuxt'
 import outputFiles from 'output-files'
-import P from 'path'
+import portReady from 'port-ready'
+import kill from 'tree-kill-promise'
 
-import self from './index.js'
+import { vueCdnScript } from './variables.js'
 
 export default tester(
   {
@@ -23,7 +24,7 @@ export default tester(
 
           <script>
           import TmpDirective from '../../tmp-directive'
-          
+
           export default {
             directives: {
               TmpDirective,
@@ -33,18 +34,19 @@ export default tester(
         `,
       })
 
-      const nuxt = new Nuxt()
-      await new Builder(nuxt).build()
-      await nuxt.listen()
+      const nuxt = execaCommand('nuxt dev')
       try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const component = await this.page.waitForSelector('.component')
-        expect(await component.evaluate(el => el.innerText)).toEqual(
-          'Hello world'
+        await this.page.waitForFunction(
+          el => el.innerText === 'Hello world',
+          {},
+          component,
         )
       } finally {
-        await nuxt.close()
+        await kill(nuxt.pid)
       }
     },
     async plugin() {
@@ -55,65 +57,54 @@ export default tester(
           </template>
         `,
         'plugins/plugin.js': endent`
-          import Vue from 'vue'
           import TmpDirective from '../../tmp-directive'
-          
-          Vue.use(TmpDirective)
+
+          export default defineNuxtPlugin(nuxtApp => nuxtApp.vueApp.use(TmpDirective))
         `,
       })
 
-      const nuxt = new Nuxt({ plugins: ['~/plugins/plugin.js'] })
-      await new Builder(nuxt).build()
-      await nuxt.listen()
-      this.page
-        .on('console', message =>
-          console.log(
-            `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
-          )
-        )
-        .on('pageerror', context => console.log(context.message))
-        .on('response', response =>
-          console.log(`${response.status()} ${response.url()}`)
-        )
-        .on('requestfailed', request =>
-          console.log(`${request.failure().errorText} ${request.url()}`)
-        )
+      const nuxt = execaCommand('nuxt dev')
       try {
+        await portReady(3000)
         await this.page.goto('http://localhost:3000')
 
         const component = await this.page.waitForSelector('.component')
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        expect(await component.evaluate(el => el.innerText)).toEqual(
-          'Hello world'
+        await this.page.waitForFunction(
+          el => el.innerText === 'Hello world',
+          {},
+          component,
         )
       } finally {
-        await nuxt.close()
+        await kill(nuxt.pid)
       }
     },
     async script() {
       await fs.outputFile(
         'index.html',
         endent`
-        <body>
-          <script src="https://unpkg.com/vue"></script>
-          <script src="../tmp-directive"></script>
-        
-          <div id="app"></div>
-        
-          <script>
-            new Vue({
-              el: '#app',
-              template: '<div class="component" v-tmp-directive />',
-            })
-          </script>
-        </body>
-      `
+          <body>
+            ${vueCdnScript}
+            <script src="../tmp-directive/dist/index.min.js"></script>
+
+            <div id="app"></div>
+
+            <script>
+              const app = Vue.createApp({
+                template: '<div class="component" v-tmp-directive />',
+              })
+              app.directive('TmpDirective', TmpDirective)
+              app.mount('#app')
+            </script>
+          </body>
+        `,
       )
-      await this.page.goto(fileUrl('index.html'))
+      await await this.page.goto(fileUrl('index.html'))
 
       const component = await this.page.waitForSelector('.component')
-      expect(await component.evaluate(el => el.innerText)).toEqual(
-        'Hello world'
+      await this.page.waitForFunction(
+        el => el.innerText === 'Hello world',
+        {},
+        component,
       )
     },
   },
@@ -125,22 +116,23 @@ export default tester(
         await chdir('tmp-directive', async () => {
           await outputFiles({
             'package.json': JSON.stringify({
-              baseConfig: P.resolve('..', 'src', 'index.js'),
               name: 'tmp-directive',
               type: 'module',
             }),
             'src/index.js': endent`
               export default {
-                bind: el => el.innerText = 'Hello world',
+                beforeMount: el => el.innerText = 'Hello world',
               }
             `,
           })
-          await new Base(self).prepare()
-          await self().commands.prepublishOnly({ log: false })
+
+          const base = new Base({ name: '../src/index.js' })
+          await base.prepare()
+          await base.run('prepublishOnly', { log: false })
         })
       },
     },
     testerPluginPuppeteer(),
     testerPluginTmpDir(),
-  ]
+  ],
 )

@@ -40,7 +40,7 @@ export default config => ({
         last 2 versions and > 2%
         ie > 10
 
-      `
+      `,
     ),
   readmeInstallString: getReadmeInstallString(config),
 })

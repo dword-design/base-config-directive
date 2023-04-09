@@ -7,17 +7,11 @@ export default () => {
   const packageName = getPackageName()
 
   const directiveName = getDirectiveName(packageName)
-  console.log(directiveName)
 
   return endent`
-    // Import directive
     import directive from './index.js'
 
-    const install = app => {
-      if (install.installed) return
-      install.installed = true
-      app.directive('${directiveName}', directive)
-    }
+    const install = app => app.directive('${directiveName}', directive)
 
     directive.install = install
 
