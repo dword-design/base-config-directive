@@ -13,8 +13,6 @@ import kill from 'tree-kill-promise'
 
 import { vueCdnScript } from './variables.js'
 
-import { vueCdnScript } from './variables'
-
 export default tester(
   {
     async directive() {
