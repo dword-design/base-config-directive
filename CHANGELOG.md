@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/dword-design/base-config-directive/compare/v1.0.33...v2.0.0) (2023-04-12)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#87](https://github.com/dword-design/base-config-directive/issues/87)) ([931d592](https://github.com/dword-design/base-config-directive/commit/931d5925d343d8b0caaeea5e8befa28b21198d96))
+
+
+### BREAKING CHANGES
+
+* vue 3
+
 ## [1.0.33](https://github.com/dword-design/base-config-directive/compare/v1.0.32...v1.0.33) (2022-02-09)
 
 
