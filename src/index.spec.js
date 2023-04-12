@@ -1,19 +1,21 @@
+import { Base } from '@dword-design/base'
 import chdir from '@dword-design/chdir'
 import { endent } from '@dword-design/functions'
-import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
+import testerPluginPuppeteer from '@dword-design/tester-plugin-puppeteer'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import fileUrl from 'file-url'
-import { mkdir, outputFile, remove } from 'fs-extra'
-import { Builder, Nuxt } from 'nuxt'
+import fs from 'fs-extra'
 import outputFiles from 'output-files'
+import portReady from 'port-ready'
+import kill from 'tree-kill-promise'
 
-import { vueCdnScript } from './variables'
+import { vueCdnScript } from './variables.js'
 
 export default tester(
   {
-    directive: async () => {
+    async directive() {
       await outputFiles({
         'pages/index.vue': endent`
           <template>
@@ -22,7 +24,7 @@ export default tester(
 
           <script>
           import TmpDirective from '../../tmp-directive'
-          
+
           export default {
             directives: {
               TmpDirective,
@@ -32,26 +34,22 @@ export default tester(
         `,
       })
 
-      const nuxt = new Nuxt()
-      await new Builder(nuxt).build()
-      await nuxt.listen()
-
-      const browser = await puppeteer.launch()
-
-      const page = await browser.newPage()
+      const nuxt = execaCommand('nuxt dev')
       try {
-        await page.goto('http://localhost:3000')
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
 
-        const component = await page.waitForSelector('.component')
-        expect(await component.evaluate(el => el.innerText)).toEqual(
-          'Hello world'
+        const component = await this.page.waitForSelector('.component')
+        await this.page.waitForFunction(
+          el => el.innerText === 'Hello world',
+          {},
+          component,
         )
       } finally {
-        await browser.close()
-        await nuxt.close()
+        await kill(nuxt.pid)
       }
     },
-    plugin: async () => {
+    async plugin() {
       await outputFiles({
         'pages/index.vue': endent`
           <template>
@@ -59,91 +57,82 @@ export default tester(
           </template>
         `,
         'plugins/plugin.js': endent`
-          import Vue from 'vue'
           import TmpDirective from '../../tmp-directive'
-          
-          Vue.use(TmpDirective)
+
+          export default defineNuxtPlugin(nuxtApp => nuxtApp.vueApp.use(TmpDirective))
         `,
       })
 
-      const nuxt = new Nuxt({ plugins: ['~/plugins/plugin.js'] })
-      await new Builder(nuxt).build()
-      await nuxt.listen()
-
-      const browser = await puppeteer.launch()
-
-      const page = await browser.newPage()
+      const nuxt = execaCommand('nuxt dev')
       try {
-        await page.goto('http://localhost:3000')
+        await portReady(3000)
+        await this.page.goto('http://localhost:3000')
 
-        const component = await page.waitForSelector('.component')
-        expect(await component.evaluate(el => el.innerText)).toEqual(
-          'Hello world'
+        const component = await this.page.waitForSelector('.component')
+        await this.page.waitForFunction(
+          el => el.innerText === 'Hello world',
+          {},
+          component,
         )
       } finally {
-        await browser.close()
-        await nuxt.close()
+        await kill(nuxt.pid)
       }
     },
-    script: async () => {
-      await outputFile(
+    async script() {
+      await fs.outputFile(
         'index.html',
         endent`
-        <body>
-          ${vueCdnScript}
-          <script src="../tmp-directive/dist/index.min.js"></script>
-        
-          <div id="app"></div>
-        
-          <script>
-            new Vue({
-              el: '#app',
-              template: '<div class="component" v-tmp-directive />',
-            })
-          </script>
-        </body>
-      `
+          <body>
+            ${vueCdnScript}
+            <script src="../tmp-directive/dist/index.min.js"></script>
+
+            <div id="app"></div>
+
+            <script>
+              const app = Vue.createApp({
+                template: '<div class="component" v-tmp-directive />',
+              })
+              app.directive('TmpDirective', TmpDirective)
+              app.mount('#app')
+            </script>
+          </body>
+        `,
       )
+      await await this.page.goto(fileUrl('index.html'))
 
-      const browser = await puppeteer.launch()
-
-      const page = await browser.newPage()
-      try {
-        await page.goto(fileUrl('index.html'))
-
-        const component = await page.waitForSelector('.component')
-        expect(await component.evaluate(el => el.innerText)).toEqual(
-          'Hello world'
-        )
-      } finally {
-        await browser.close()
-      }
+      const component = await this.page.waitForSelector('.component')
+      await this.page.waitForFunction(
+        el => el.innerText === 'Hello world',
+        {},
+        component,
+      )
     },
   },
   [
     {
-      after: () => remove('tmp-directive'),
+      after: () => fs.remove('tmp-directive'),
       before: async () => {
-        await mkdir('tmp-directive')
+        await fs.mkdir('tmp-directive')
         await chdir('tmp-directive', async () => {
           await outputFiles({
-            'node_modules/base-config-self/index.js':
-              "module.exports = require('../../../src')",
             'package.json': JSON.stringify({
-              baseConfig: 'self',
               name: 'tmp-directive',
+              type: 'module',
             }),
             'src/index.js': endent`
               export default {
-                bind: el => el.innerText = 'Hello world',
+                beforeMount: el => el.innerText = 'Hello world',
               }
             `,
           })
-          await execa.command('base prepare')
-          await execa.command('base prepublishOnly')
+
+          const base = new Base({ name: '../src/index.js' })
+          await base.prepare()
+          await base.run('prepublishOnly', { log: false })
         })
       },
     },
+    testerPluginPuppeteer(),
     testerPluginTmpDir(),
-  ]
+  ],
 )
