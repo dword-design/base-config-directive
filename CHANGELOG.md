@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/dword-design/base-config-directive/compare/v2.0.0...v2.0.1) (2023-04-13)
+
+
+### Bug Fixes
+
+* trigger release ([a7fde94](https://github.com/dword-design/base-config-directive/commit/a7fde94d9f76ffd6815420143fd2b9e5bec09260))
+* update dependency @dword-design/tester to v2.0.18 ([641f2d5](https://github.com/dword-design/base-config-directive/commit/641f2d5b8d42787deb581645309a5c8a6d5db3d6))
+
 # [2.0.0](https://github.com/dword-design/base-config-directive/compare/v1.0.33...v2.0.0) (2023-04-12)
 
 
