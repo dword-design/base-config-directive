@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/dword-design/base-config-directive/compare/v2.0.3...v2.0.4) (2023-04-13)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.27 ([db5a9ac](https://github.com/dword-design/base-config-directive/commit/db5a9ac515ca56e074dcd43ac2df277edf0e7391))
+
 ## [2.0.3](https://github.com/dword-design/base-config-directive/compare/v2.0.2...v2.0.3) (2023-04-13)
 
 
