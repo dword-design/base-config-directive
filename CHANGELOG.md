@@ -1,3 +1,10 @@
+## [2.0.13](https://github.com/dword-design/base-config-directive/compare/v2.0.12...v2.0.13) (2023-04-22)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/tester-plugin-puppeteer to v2.1.65 ([13ac5a4](https://github.com/dword-design/base-config-directive/commit/13ac5a4c35922b39fe697f8563d016ffc7b19850))
+
 ## [2.0.12](https://github.com/dword-design/base-config-directive/compare/v2.0.11...v2.0.12) (2023-04-22)
 
 
