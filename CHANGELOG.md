@@ -1,3 +1,11 @@
+## [2.0.14](https://github.com/dword-design/base-config-directive/compare/v2.0.13...v2.0.14) (2023-04-26)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/puppeteer to v6.0.9 ([db0e383](https://github.com/dword-design/base-config-directive/commit/db0e3836b79e94b3559579b861e808661cbc048a))
+* update dependency @vitejs/plugin-vue to v4.2.0 ([0e4b5df](https://github.com/dword-design/base-config-directive/commit/0e4b5df06a5752789c7124d7b10b2bf616346e15))
+
 ## [2.0.13](https://github.com/dword-design/base-config-directive/compare/v2.0.12...v2.0.13) (2023-04-22)
 
 
