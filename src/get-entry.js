@@ -11,9 +11,7 @@ export default () => {
   return endent`
     import directive from './index.js'
 
-    const install = app => app.directive('${directiveName}', directive)
-
-    directive.install = install
+    directive.install = app => app.directive('${directiveName}', directive)
 
     if (typeof window !== 'undefined') {
       window.${directiveName} = directive
