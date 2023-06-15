@@ -27,9 +27,9 @@ export default config => ({
   gitignore: ['/dist', '.browserslistrc'],
   npmPublish: true,
   packageConfig: {
-    browser: 'dist/index.esm.js',
-    main: 'dist/index.ssr.js',
-    module: 'dist/index.esm.js',
+    browser: 'dist/index.min.js',
+    exports: './dist/index.esm.js',
+    main: 'dist/index.esm.js',
     unpkg: 'dist/index.min.js',
   },
   prepare: () =>
