@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/dword-design/base-config-directive/compare/v2.0.19...v3.0.0) (2023-06-20)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#122](https://github.com/dword-design/base-config-directive/issues/122)) ([2212e21](https://github.com/dword-design/base-config-directive/commit/2212e2114f3f0c0badd1a95a8bad9dfeecbb1c17))
+
+
+### BREAKING CHANGES
+
+* drop node 14
+
 ## [2.0.19](https://github.com/dword-design/base-config-directive/compare/v2.0.18...v2.0.19) (2023-05-13)
 
 
