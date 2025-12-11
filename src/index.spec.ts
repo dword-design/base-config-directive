@@ -40,7 +40,12 @@ test('directive', async ({ page }, testInfo) => {
   await base.prepare();
   await base.run('prepublishOnly');
   const port = await getPort();
-  const nuxt = execaCommand('nuxt dev', { cwd, env: { PORT: String(port) } });
+
+  const nuxt = execaCommand('nuxt dev', {
+    cwd,
+    env: { PORT: String(port) },
+    reject: false,
+  });
 
   try {
     await nuxtDevReady(port);
@@ -82,7 +87,12 @@ test('plugin', async ({ page }, testInfo) => {
   await base.prepare();
   await base.run('prepublishOnly');
   const port = await getPort();
-  const nuxt = execaCommand('nuxt dev', { cwd, env: { PORT: String(port) } });
+
+  const nuxt = execaCommand('nuxt dev', {
+    cwd,
+    env: { PORT: String(port) },
+    reject: false,
+  });
 
   try {
     await nuxtDevReady(port);
