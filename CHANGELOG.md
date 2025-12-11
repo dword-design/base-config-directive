@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/dword-design/base-config-directive/compare/v3.0.0...v4.0.0) (2025-12-11)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#130](https://github.com/dword-design/base-config-directive/issues/130)) ([b1ef890](https://github.com/dword-design/base-config-directive/commit/b1ef890ef166047bc414f1171917806c5fbb9922))
+* set test timeout ([2bb3e6d](https://github.com/dword-design/base-config-directive/commit/2bb3e6d907a0121113ec548a4057b6eb898bdfe1))
+
+
+### BREAKING CHANGES
+
+* node >= 22
+
 # [3.0.0](https://github.com/dword-design/base-config-directive/compare/v2.0.19...v3.0.0) (2023-06-20)
 
 
